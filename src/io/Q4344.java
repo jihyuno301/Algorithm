@@ -17,19 +17,21 @@ public class Q4344 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int T = Integer.parseInt(br.readLine()); //테스트 케이스 개수
-		double[] op = new double[T]; // 출력값
+		String[] op = new String[T]; // 출력값
 		for(int i=0; i<T; i++) {
 			String[] N = br.readLine().split(" ");
-			double total = 0.0;
+			int total = 0;
 			for(int j=1; j<N.length; j++) {
-				total += Double.parseDouble(N[i]);
+				total += Integer.parseInt(N[j]);
 			}
 			double arg = total/(N.length-1);
 			int count = 0;
 			for(int z=1; z<N.length; z++) {
-				if(arg<Double.parseDouble(N[i])) count++;
+				if(arg<Double.parseDouble(N[z])) count++;
 			}
-			op[i] = Math.round(count/(N.length-1)*100*1000)/1000;
+			double d = (double)count/(N.length-1)*100;
+			op[i] = String.format("%.3f",d);
+			
 		}
 		
 		for(int i=0; i<op.length; i++) {
