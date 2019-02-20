@@ -1,4 +1,4 @@
-package io;
+ package io;
 /*
  * Title : 평균
  * 세준이는 기말고사를 망쳤다. 세준이는 점수를 조작해서 집에 가져가기로 했다. 일단 세준이는 자기 점수 중에
@@ -13,7 +13,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 
 public class Q1546 {
 
@@ -22,8 +21,8 @@ public class Q1546 {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int N = Integer.parseInt(br.readLine()); //과목수
 		String[] str = br.readLine().split(" "); //과목점수
-		float[] arr = new float[N]; //조작점수
-		float total=0;
+		double[] arr = new double[N]; //조작점수
+		double total=0;
 		int max = Integer.parseInt(str[0]);
 		for(int i=1; i<N; i++) {
 			int temp = Integer.parseInt(str[i]);
@@ -31,14 +30,12 @@ public class Q1546 {
 				max = temp;
 			}
 		}
-		for(int i=0; i<N; i++) {
+		for(int i=0; i<N; i++) { //조작점수 계산
 			int temp = Integer.parseInt(str[i]);
-			arr[i] = (temp/max)*100;
-			System.out.println(arr[i]);
+			arr[i] = (double)temp/max*100;
 			total += arr[i];
-			System.out.println(total);
 		}
-		bw.write(total+"\n");
+		bw.write(total/N+"\n");
 		bw.flush();
 		bw.close();
 		
