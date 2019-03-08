@@ -10,24 +10,28 @@ package 문자열;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Q1157 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		ArrayList<Character> list = new ArrayList<Character>();
-		char[] ch = br.readLine().toLowerCase().toCharArray();
-		for(int i : ch) {
-			for(int j=0; j<list.size(); j++) {
-				
+		char[] ch = br.readLine().toUpperCase().toCharArray(); 
+		int[] cnt = new int[26];
+		int max = 0;
+		char ans = 0;
+		for(int i=0; i<ch.length; i++) { 
+			cnt[ch[i]-65]++;
+			if(max<cnt[ch[i]-65]) {
+				ans = ch[i];
+				max = cnt[ch[i]-65];
 			}
+			else if(max==cnt[ch[i]-65]) {
+				ans = '?';
+			}		
+			
 		}
+		System.out.println(ans);
 		
-		
-		
-
 	}
 
 }
