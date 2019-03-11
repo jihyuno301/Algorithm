@@ -15,16 +15,22 @@ public class Q1978 {
 
 	public static void main(String[] args) throws IOException {
 		//소수 : 1과 자기 자신만으로 나누어 떨어지는 1보다 큰 양의 정수
+		//나누어 떨어진다 : 몫이 항상 자연수
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int num = Integer.parseInt(br.readLine());
 		StringTokenizer st= new StringTokenizer(br.readLine());
 		int cnt = 0; 
+		int a;
 		while(st.hasMoreTokens()==true) {
 			int n = Integer.parseInt(st.nextToken());
-			
+			a = 0;
+			for(int i=1; i<=n; i++) {
+				if(n%i==0) a++;
+			}
+			if(a==2) cnt++;
 		}
 		
-			
+		System.out.println(cnt);	
 		
 
 	}
