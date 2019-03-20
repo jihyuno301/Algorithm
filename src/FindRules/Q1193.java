@@ -7,10 +7,44 @@
  */
 package FindRules;
 
+import java.util.Scanner;
+
 public class Q1193 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Scanner input = new Scanner(System.in);
+		int N = input.nextInt(); 
+		
+		int pre_sum = 0;
+		int sum = 0;
+		int layer=1; //층
+		while(true) {
+			pre_sum = sum;
+			sum += layer;
+			if(N<=sum) break;
+			layer++;
+		}
+		
+		int x = 0; //분자 
+		int y = 0; //분모
+		int cnt;
+		if(layer%2==1) {
+			cnt = N-pre_sum;
+			for(int i=0; i<cnt; i++) {
+				x = layer--;
+				y++;
+			}
+		}
+		
+		else  {
+			cnt = N-pre_sum;
+			for(int i=0; i<cnt; i++) {
+				x++;
+				y = layer--;
+			}
+		}
+		
+		System.out.println(x+"/"+y);
 
 	}
 
