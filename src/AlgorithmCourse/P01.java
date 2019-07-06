@@ -2,7 +2,6 @@
  * Title : 짝수, 홀수 분리하기
  * int형 배열로 입력을 받아서 짝수는 왼쪽, 홀수는 오른쪽으로 정렬되게 하라
  */
-package SWproject;
 
 import java.util.Scanner;
 
