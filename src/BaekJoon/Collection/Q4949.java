@@ -22,6 +22,7 @@ package BaekJoon.Collection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class Q4949 {
@@ -29,6 +30,7 @@ public class Q4949 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while(true) {
             char[] text = br.readLine().toCharArray();
+            if(text[0]=='.') break; //입력 종료조건
             Stack stack = new Stack();
             int count = 0;
             for(int i=0; i<text.length; i++) {
@@ -38,13 +40,24 @@ public class Q4949 {
                     ++count;
                 }
                 else if(ch==')') {
-                    temp = (char)stack.pop();
-                    if(temp=='(') --count;
+                    try {
+                        temp = (char)stack.pop();
+                        if(temp=='(') --count;
+                    }catch(EmptyStackException e) {
+                        --count;
+                        break;
+                    }
                 }
                 else if(ch==']') {
-                    temp = (char)stack.pop();
-                    if(temp=='[') --count;
+                    try {
+                        temp = (char)stack.pop();
+                        if(temp==']') --count;
+                    }catch(EmptyStackException e) {
+                        --count;
+                        break;
+                    }
                 }
+                else continue;
             }
             System.out.println(count==0 ? "YES" : "NO");
         }
