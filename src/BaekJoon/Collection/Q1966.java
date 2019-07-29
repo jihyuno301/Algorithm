@@ -12,6 +12,15 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Q1966 {
+	public static class Document {
+		int index;
+		int value;
+
+		public Document(int index, int value) {
+			this.index = index;
+			this.value = value;
+		}
+	}
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int T = Integer.parseInt(br.readLine());
@@ -19,29 +28,28 @@ public class Q1966 {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			int N = Integer.parseInt(st.nextToken()); //문서의 개수
 			int M = Integer.parseInt(st.nextToken()); //몇번째로 인쇄되는지 찾고자 하는 문서의 위치
-			int num = 0; //위치가 M인 문서의 중요도
-			int count = 0;
 			st = new StringTokenizer(br.readLine());
-			Queue<Integer> queue = new LinkedList<>();
+			Queue<Document> queue = new LinkedList<>();
+			int index = 0;
 			while(st.hasMoreTokens()) {
-				if(count==M) {
-					num = Integer.parseInt(st.nextToken());
-					queue.offer(num);
-					count++;
-				}
-				else {
-					queue.offer(Integer.parseInt(st.nextToken()));
-					count++;
-				}
+				Document document = new Document(index++, Integer.parseInt(st.nextToken()));
+				queue.offer(document);
 			}
-			count = 0; //초기화
-			for(int j=0; j<N; j++) {
-				if(queue.peek()>num) {
-					queue.poll();
-					++count;
+			int count = 0;
+			while(true) {
+				Document document = queue.poll();
+				int max = document.value;
+				for(Document d : queue) {
+					if (max < d.value) {
+						max = d.value;
+					}
+				}
+				if(document.value < max) {
+					queue.offer(document);
 				}
 				else {
-					queue.offer(queue.poll());
+					++count;
+					if(document.index == M) break;
 				}
 			}
 
