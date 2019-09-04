@@ -14,4 +14,5 @@
 ### Binary Search 
 <ul>
 <li>Q5639 이진 검색 트리</li>
+<li>Q1920 수 찾기</li>
 </ul>
