@@ -30,11 +30,33 @@ public class Q1260 {
 			visited[current] = true;
 			System.out.print((current+1)+" ");
 			//방문할 수 있는 정점이 여러 개인 경우에는 정점 번호가 작은 것을 먼저 방문
-
-
+			//내림차순으로 정렬`
+			Collections.sort(list[current]);
+			Collections.reverse(list[current]);
+			for(int child : list[current]) {
+				if (visited[child] == false) {
+					stack.push(child);
+				}
+			}
 		}
+		System.out.println();
+	}
 
-
+	static void BFS(List<Integer>[] list, int start) {
+		boolean[] visited = new boolean[list.length];
+		ArrayDeque<Integer> queue = new ArrayDeque<>();
+		queue.push(start);
+		while(queue.size()>0) {
+			int current = queue.removeFirst();
+			if(visited[current]) continue;
+			visited[current] = true;
+			System.out.print((current + 1)+" ");
+			Collections.sort(list[current]);
+			for(int child : list[current]) {
+				if(visited[child]==false) queue.addLast(child);
+			}
+		}
+		System.out.println();
 	}
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -52,6 +74,7 @@ public class Q1260 {
 			list[a].add(b); //두 정점 사이의 간선
 			list[b].add(a);
 		}
-
+		DFS(list, V);
+		BFS(list, V);
 	}
 }
