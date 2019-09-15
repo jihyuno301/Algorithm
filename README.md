@@ -21,6 +21,7 @@
 #### Graph
 <ul>
 <li>Q1260 DFS와 BFS</li>
+<li>Q2606 바이러스</li>
 </ul>
 
 #### Math
