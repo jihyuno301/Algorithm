@@ -15,6 +15,7 @@ public class Q7562 {
 
 	static class Vertex {
 		int r, c, distance;
+
 		public Vertex(int r, int c, int distance) {
 			this.r = r;
 			this.c = c;
@@ -23,14 +24,14 @@ public class Q7562 {
 	}
 
 	static final int[][] moves = new int[][] {
-			{+1,+2}, {+2,+1}, {-2,+1}, {-1,+2}, {-1,-2}, {-1,+2}, {-2,-1}, {-2,+1}
+			{+2,+1}, {+1,+2}, {+2,-1}, {+1,-2}, {-2,+1}, {-1,+2}, {-2,-1}, {-1,-2}
 	};
 
 	public static int solution(int I, int m0, int m1, int n0, int n1) {
 		boolean[][] visited  = new boolean[I][I];
 		Queue<Vertex> queue = new LinkedList<>();
 		queue.add(new Vertex(m0,m1,0));
-		while(!queue.isEmpty()) {
+		while(queue.size()>0) {
 			Vertex vertex = queue.remove();
 			if(vertex.r == n0 && vertex.c == n1) return vertex.distance;
 			if(vertex.r < 0 || vertex.r >= I) continue;
