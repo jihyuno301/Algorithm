@@ -34,37 +34,39 @@ public class Q6593 {
 		}
 	}
 
-	static int[][][] moves = {{{0,0,+1}}, {{0,0,-1}}, {{0,-1,0}}, {{0,+1,0}}, {{1,0,0}}, {{-1,0,0}}};
-	static int bfs(char[][][] building, int[] start, int[] end) {
+	static int[][] moves = {{0,0,+1}, {0,0,-1}, {0,-1,0}, {0,+1,0}, {1,0,0}, {-1,0,0}};
+	static int bfs(char[][][] building, int[] start) {
 		Queue<Vertex> queue = new LinkedList<>();
 		Set<Vertex> hashSet = new HashSet<>();  //방문한 정점들의 집합
 
 		Vertex S = new Vertex(start[0],start[1],start[2],0);
 		queue.add(S);
-
 		while(!queue.isEmpty()) {
 			Vertex vertex = queue.remove();
 			if(building[vertex.l][vertex.r][vertex.c] == '#') continue;
 			if(building[vertex.l][vertex.r][vertex.c] == 'E') return vertex.distance;
 			if(hashSet.contains(vertex)) continue;
-			hashSet.add(vertex);
-			for(int[][] layer : moves) { //하나의 층
-				for(int[] row : layer) {
-					int l1 = vertex.l + layer[0][0];
-					int r1 = vertex.r + row[0];
-					int c1 = vertex.r + row[1];
+			hashSet.add(vertex); // 방문한 정점
 
-					if(l1<0 || l1>=building.length) continue;
-					if(r1<0 || r1>= building[0].length) continue;
-					if(c1<0 || c1>=building[0][0].length) continue;
+			for(int[] move : moves) {
+				// {{0,0,+1}, {0,0,-1}, {0,-1,0}, {0,+1,0}, {1,0,0}, {-1,0,0}};
+				int L = vertex.l + move[0];
+				int R = vertex.r + move[1];
+				int C = vertex.c + move[2];
 
-					queue.add(new Vertex(l1,r1,c1,vertex.distance+1));
+				if(L<0 || L>=building.length) continue;
+				if(R<0 || R>= building[0].length) continue;
+				if(C<0 || C>=building[0][0].length) continue;
+
+				// 목적지 E까지 가는 것을 큐에 추가하지 않아서 오류발생
+				if(building[L][R][C] == '.' || building[L][R][C]=='E') {
+					queue.add(new Vertex(L, R, C, vertex.distance + 1));
 				}
 			}
 		}
 		return -1;
-
 	}
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while(true) {
@@ -77,19 +79,21 @@ public class Q6593 {
 
 			char[][][] building = new char[L][R][C];
 			int[] start = new int[3];
-			int[] end = new int[3];
 			for (int i = 0; i < L; i++) {
 				for (int j = 0; j < R; j++) {
 					char[] temp = br.readLine().toCharArray();
 					for (int k = 0; k<C; k++) {
-						if(temp[k]=='S') start[0]=i; start[1]=j; start[2]=k;
-						if(temp[k]=='E') end[0]=i; end[1]=j; end[2]=k;
+						if(temp[k]=='S') {
+							start[0]=i;
+							start[1]=j;
+							start[2]=k;
+						}
 						building[i][j][k] = temp[k];
 					}
 				}
 				br.readLine();
 			}
-			int result = bfs(building, start, end);
+			int result = bfs(building, start);
 			if(result == -1) System.out.println("Trapped!");
 			else System.out.println(String.format("Escaped in %d minute(s).", result));
 		}
