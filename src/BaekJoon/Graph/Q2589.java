@@ -1,9 +1,9 @@
 package BaekJoon.Graph;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.*;
+		import java.io.IOException;
+		import java.io.InputStreamReader;
+		import java.util.*;
 
 public class Q2589 {
 
@@ -34,18 +34,32 @@ public class Q2589 {
 		}
 	}
 
-	public static int solution(int r, int c) {
+	public static int solution(int row, int column) {
 		Queue<Node> queue = new LinkedList<>();
 		Set<Node> visited = new HashSet<>();
 
-		Node node = new Node(r,c,0);
+		Node node = new Node(row,column,0);
 		queue.add(node);
 		while(!queue.isEmpty()) {
 			Node temp = queue.remove();
 			if(visited.contains(temp)) continue;
-
+			if(temp.r < 0 || temp.r >= matrix.length) continue;
+			if(temp.c < 0 || temp.c >= matrix[0].length) continue;
+			if(matrix[temp.r][temp.c]=='W') continue;
+			visited.add(temp);
+			queue.add(new Node(temp.r+1, temp.c, temp.distance+1));
+			queue.add(new Node(temp.r-1, temp.c, temp.distance+1));
+			queue.add(new Node(temp.r, temp.c+1, temp.distance+1));
+			queue.add(new Node(temp.r, temp.c-1, temp.distance+1));
 		}
 
+		Iterator<Node> iterator = visited.iterator();
+		int time = 0;
+		while(iterator.hasNext()) {
+			int temp = iterator.next().distance;
+			if(temp > time) time = temp;
+		}
+		return time;
 	}
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -65,10 +79,17 @@ public class Q2589 {
 		for(int i=0; i<r; i++) {
 			for(int j=0; j<c; j++) {
 				if(matrix[i][j]=='W') continue;
-				int result = solution(int r, int c);
+				int result = solution(i, j);
 				time.add(result);
 			}
 		}
 
+		Iterator<Integer> iterator = time.iterator();
+		int result = 0;
+		while(iterator.hasNext()) {
+			int temp = iterator.next();
+			if(temp > result) result = temp;
+		}
+		System.out.println(result);
 	}
 }
