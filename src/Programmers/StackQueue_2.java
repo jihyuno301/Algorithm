@@ -1,3 +1,9 @@
+/*
+Title : 다리를 건너는 트럭
+URL : https://programmers.co.kr/learn/courses/30/lessons/42583
+
+- 다리를 건너지 않은 '대기큐'와 '건너고 있는 중인 큐'를 구분해서 구현해야 한다.
+ */
 package Programmers;
 
 import java.util.LinkedList;
@@ -6,25 +12,43 @@ import java.util.Queue;
 public class StackQueue_2 {
 	static class Truck {
 		int weight;
+		int move;
+
+		public Truck(int weight, int move) {
+			this.weight = weight;
+			this.move = move;
+		}
 	}
 	public static int solution(int bridge_length, int weight, int[] truck_weights) {
-		Queue<Integer>  queue = new LinkedList<>();
-		int weight_total = 0; // 트럭들의 총무게
-		int length_total = 0; // 트럭의 이동거리
-		int result = 0; // 경과 시간
+		Queue<Truck> q1 = new LinkedList<>(); // 대기트럭
+		Queue<Truck> q2 = new LinkedList<>(); // 다리를 건너는 트럭
+		int total = 0; // 제한무게
+		int time = 0; // 경과시간
 
-		for(int i : truck_weights) queue.add(i);
+		for(int i : truck_weights) {
+			q1.add(new Truck(i,0));
+		}
 
-		while(!queue.isEmpty()) {
-			int truck_weight = queue.peek();
-			weight_total += truck_weight;
-			++length_total;
-			if(weight_total < weight) {
+		total += q1.peek().weight;
+		q2.add(q1.remove());
 
-			} else {
+		while(!q2.isEmpty()) {
+			// 1초당 다리를 건너고 있는 트럭들 거리1씩 이동
+			time++;
+			for(Truck t : q2) {
+				t.move++;
+			}
 
+			if(q2.peek().move == bridge_length) {
+				total -= q2.remove().weight;
+			}
+
+			if(!q1.isEmpty() && total+q1.peek().weight <= weight) {
+				total += q1.peek().weight;
+				q2.add(q1.remove());
 			}
 		}
+		return time+1;
 	}
 	public static void main(String[] args) {
 		int bridge_length = 2;
