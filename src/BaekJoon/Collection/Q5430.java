@@ -1,74 +1,70 @@
+/*
+Title : AC
+URL : https://www.acmicpc.net/problem/5430
+
+- 덱 이용, 실제로 뒤집지 말기
+ */
 package BaekJoon.Collection;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.Queue;
 
 public class Q5430 {
 	static String translateIntoAC(char[] func, int[] arr) {
 		Queue<Character> queue = new LinkedList<>();
-		List<Integer> arrayList = new ArrayList<>();
+		Deque<Integer> deque = new ArrayDeque<>();
+		boolean reverse = false; // 배열이 뒤집힌 경우는 true;
 
-		for(int i=0; i<func.length; i++) {
-			queue.add(func[i]);
-		}
+		if(arr.length == 0) return Arrays.toString(arr);
 
-		if(arr.length == 0) return "error";
+		for(char c : func) queue.add(c);
+		for(int n : arr) deque.add(n);
 
 		while(!queue.isEmpty()) {
 			char c = queue.remove();
 			// 숫자 뒤집기
 			if( c == 'R') {
-				arr = reverseIntArray(arr);
+				if(reverse == false) reverse = true;
+				else reverse = false;
 			}
 			if( c == 'D') {
-				if(arr.length == 0 || arr[0] == 0 ) return "error";
-				arr = takeOutFirstInt(arr);
+				if(deque.size()==0) return "error";
+				else {
+					if(reverse == false) deque.removeFirst();
+					else deque.removeLast();
+				}
 			}
 		}
-
-		int i = 0;
-		while(arr[i] != 0) arrayList.add(arr[i++]);
-		return arrayList.toString();
-
-	}
-	static int[] reverseIntArray(int[] arr) {
-		int n = arr.length / 2;
-		for(int i=0; i<n; i++) {
-			int tmp = arr[i];
-			arr[i] = arr[arr.length-1-i];
-			arr[arr.length-1-i] = tmp;
+		if(reverse == true) { // 배열이 뒤집어 있다면
+			StringBuilder sb = new StringBuilder("[");
+			while(deque.size()>1) {
+				sb.append(deque.removeLast());
+				sb.append(",");
+			}
+			sb.append(deque.removeLast());
+			sb.append("]");
+			return sb.toString();
 		}
-		return arr;
+		else return deque.toString();
 	}
 
-	static int[] takeOutFirstInt(int[] arr) {
-		if(arr.length == 1) {
-			arr[0] = 0;
-			return arr;
-		}
-		for(int i=0; i<arr.length-1; i++) {
-			arr[i] = arr[i+1];
-		}
-		arr[arr.length-1] = 0;
-		return arr;
-	}
-	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
-
-		int T = scan.nextInt();
-		scan.nextLine(); // 개행문자 제거
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int T = Integer.parseInt(st.nextToken());
 		for(int i=0; i<T; i++) {
-			String str = scan.nextLine().trim();
-			char[] func = str.toCharArray();
-			int N = scan.nextInt(); // 배열의 크기
-			int[] arr = new int[N];
-			for(int k=0; k<N; k++) {
-				arr[k] = scan.nextInt();
+			char[] func = br.readLine().toCharArray();
+			int n = Integer.parseInt(br.readLine());
+			int[] arr = new int[n];
+			st = new StringTokenizer(br.readLine()," ,[]");
+			for(int k=0; k<n; k++) {
+				int value = Integer.parseInt(st.nextToken());
+				arr[k] = value;
 			}
-			scan.nextLine(); // 개행문자 제거
-			String output = translateIntoAC(func, arr);
-			System.out.println(output);
-
- 		}
+			translateIntoAC(func,arr);
+		}
 	}
 }
