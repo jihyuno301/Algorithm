@@ -4,8 +4,8 @@ import java.util.*;
 
 public class StackQueue_3 {
 	static class Function {
-		int progresses = 0;
-		int speeds = 0;
+		int progresses;
+		int speeds;
 		int deploy = 0;
 
 		public Function(int progresses, int speeds) {
@@ -22,34 +22,36 @@ public class StackQueue_3 {
 		}
 	}
 
-
 	static int[] solution(int[] progresses, int[] speeds) {
-		Queue<Fucntion> queue = new LinkedList<>();
-			List<Integer> arrayList = new ArrayList<>();
+		Queue<Function> queue = new LinkedList<>();
+		List<Integer> arrayList = new ArrayList<>();
 
-			int length = progresses.length;
-			for(int i=0; i<length; i++) {
+		int length = progresses.length;
+		for(int i=0; i<length; i++) {
 				queue.add(new Function(progresses[i], speeds[i]));
-			}
-
-			int cnt = 0;
-			while(!queue.isEmpty()) {
-				Function function = queue.remove();
-				++cnt;
-				while(!queue.isEmpty()) {
-					if(function.deploy >= queue.peek() ) {
-						queue.remove();
-						++cnt;
-					} else break;
-				}
-				arrayList.add(cnt);
-				cnt = 0;
-			}
-
-			Integer[] arr = arrayList.toArray(Integer[] arr);
-			return arr;
 		}
+
+		int cnt = 0;
+		while(!queue.isEmpty()) {
+			Function function = queue.remove();
+			++cnt;
+			while(!queue.isEmpty()) {
+				if(function.getDeploy() >= queue.peek().getDeploy()) {
+					queue.remove();
+					++cnt;
+				} else break;
+			}
+			arrayList.add(cnt);
+			cnt = 0;
+		}
+
+		int[] arr = new int[arrayList.size()];
+		for(int i=0; i<arrayList.size(); i++) {
+			arr[i] = arrayList.get(i).intValue();
+		}
+		return arr;
 	}
+
 
 	public static void main(String[] args) {
 		int[] progresses = {93,30,55};
