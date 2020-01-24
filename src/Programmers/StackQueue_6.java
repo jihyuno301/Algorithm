@@ -10,6 +10,10 @@ public class StackQueue_6 {
 			int cnt = 0;
 			for (int j = i + 1; j < prices.length; j++) {
 				if (pivot <= prices[j]) cnt++;
+				else {
+					cnt++;
+					break;
+				}
 			}
 			result[i] = cnt;
 		}
