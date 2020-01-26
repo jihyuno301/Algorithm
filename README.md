@@ -36,6 +36,11 @@
 <li>Q3036 링 | GCD</li>
 </ul>  
 
+#### Brute Force
+<ul>
+<li>Q9663 N-Queen
+</ul>
+
 ## 프로그래머스
 <ul>
 <li>완주하지 못한 선수</li>
