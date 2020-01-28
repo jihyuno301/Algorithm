@@ -39,6 +39,7 @@
 #### Brute Force
 <ul>
 <li>Q9663 N-Queen
+<li>Q2309 일곱 난쟁이
 </ul>
 
 ## 프로그래머스
