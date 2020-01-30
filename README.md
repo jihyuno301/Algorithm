@@ -57,4 +57,5 @@
 <li>주식가격</li>
 <li>K번째수</li>
 <li>H-Index</li>
+<li>모의고사</li>
 </ul>
