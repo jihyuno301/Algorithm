@@ -57,5 +57,6 @@
 <li>주식가격</li>
 <li>K번째수</li>
 <li>H-Index</li>
-<li>모의고사</li>
+<li>가장 큰 수</li>
+<li>모의고사 | 완전탐색 </li>
 </ul>
