@@ -2,7 +2,6 @@
 Title : 여행경로
 URL : https://programmers.co.kr/learn/courses/30/lessons/43163
 
-- NullPointerException 해결요함
  */
 package Programmers;
 
@@ -72,11 +71,17 @@ public class Graph_4 {
 		}
 
 		//현재 작업 단계
+		System.out.println("3");
 		while(!routes[idx].isEmpty()) {
 			Ticket t = routes[idx].remove(0);
 			result.add(t.arrive);
 			System.out.println(t.arrive);
-			dfs(map.get(t.arrive));
+			// 마지막 종착지가 key값에 없어서 NullPointerException 발생
+			try {
+				dfs(map.get(t.arrive));
+			} catch(NullPointerException e) {
+				break;
+			}
 
 		}
 
