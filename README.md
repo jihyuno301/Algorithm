@@ -72,5 +72,6 @@
 <li>체육복 | 그리디 </li>
 <li>큰 수 만들기 | 그리디 </li>
 <li>타겟 넘버 | DFS BFS </li>
+<li>네트워크 | DFS BFS </li>
 <li>여행 경로 | DFS BFS </li>
 </ul>
