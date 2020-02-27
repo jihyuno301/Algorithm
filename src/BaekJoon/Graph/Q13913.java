@@ -16,20 +16,15 @@ public class Q13913 {
 	static class Node {
 		int x;
 		int distance;
-		StringBuilder sb = new StringBuilder();
+		Node parent;
 
-		public Node(int x, int distance, StringBuilder sb) {
+		public Node(int x, int distance, Node parent) {
 			this.x = x;
 			this.distance = distance;
-			if(sb != null) this.sb.append(sb);
-			this.sb.append(x+" ");
-		}
-
-		@Override
-		public String toString() {
-			return sb.toString();
+			this.parent = parent;
 		}
 	}
+
 	static void solution(int N, int K) {
 		Deque<Node> deque = new ArrayDeque<>();
 		Set<Integer> hashSet = new HashSet<>();
@@ -38,18 +33,23 @@ public class Q13913 {
 
 		while(!deque.isEmpty()) {
 			Node node = deque.remove();
-
 			if(node.x == K) {
 				System.out.println(node.distance);
-				System.out.println(node.toString());
+				StringBuilder sb = new StringBuilder();
+				while(node != null) {
+					sb.insert(0, node.x+ " ");
+					node = node.parent;
+				}
+				System.out.println(sb.toString());
 				break;
 			}
+			if(node.x < 0 || node.x > 100000) continue;
 			if(hashSet.contains(node.x)) continue;
 			hashSet.add(node.x);
 
-			deque.add(new Node(node.x*2, node.distance+1, node.sb));
-			deque.add(new Node(node.x+1, node.distance+1, node.sb));
-			deque.add(new Node(node.x-1, node.distance+1, node.sb));
+			deque.add(new Node(node.x*2, node.distance+1, node));
+			deque.add(new Node(node.x+1, node.distance+1, node));
+			deque.add(new Node(node.x-1, node.distance+1, node));
 		}
 	}
 	public static void main(String[] args) throws IOException {
