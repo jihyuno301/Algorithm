@@ -32,7 +32,7 @@ public class Q9019 {
 		while(!arrayDeque.isEmpty()) {
 			node = arrayDeque.remove();
 			if(hashSet.contains(node.n)) continue;
-			if(node.n > 10000) continue;
+			if(node.n >= 10000) continue;
 			if(node.n == b) break;
 			hashSet.add(node.n);
 
@@ -45,10 +45,10 @@ public class Q9019 {
 		StringBuilder sb = new StringBuilder();
 		Node tmp = node;
 		while(tmp != null) {
-			sb.insert(0, tmp.c+"");
+			sb.insert(0, tmp.c);
 			tmp = tmp.parent;
 		}
-		return sb.toString();
+		return sb.toString().trim();
 	}
 
 	static int commandD(int n) {
@@ -59,47 +59,53 @@ public class Q9019 {
 		return n==0 ? 9999 : n-1;
 	}
 
-	// 왼쪽으로 회전
 	static int commandL(int n) {
-		if(n<10) System.out.println(n);
-		// 두자릿수 이상인 자연수인 경우
-		char[] number = String.valueOf(n).toCharArray();
-		int N = number.length;
-		char next = number[N-1];
-		for(int i=N-1; i>0; i--) {
-			char current = next;
-			next = number[(i-1)%N];
-			number[(i-1)%N] = current;
-		}
-		number[N-1] = next;
-
-		StringBuilder sb = new StringBuilder();
-		for(char c : number) {
-			sb.append(c-'0');
-		}
-		return Integer.parseInt(sb.toString());
+		return (n*10+n/1000) % 10000;
 	}
 
-	// 오른쪽으로 회전
-	static int commandR(int n) {
-		if(n<10) System.out.println(n);
-		// 두자릿수 이상인 자연수인 경우
-		char[] number = String.valueOf(n).toCharArray();
-		int N = number.length;
-		char next = number[0];
-		for(int j=0; j<N; j++) {
-			char current = next;
-			next = number[(j+1)%N];
-			number[(j+1)%N] = current;
-		}
+	static int commandR(int n) { return n / 10 + n % 10 * 1000; }
+//	// 왼쪽으로 회전
+//	static int commandL(int n) {
+//		if(n<10) return n;
+//		// 두자릿수 이상인 자연수인 경우
+//		char[] number = String.valueOf(n).toCharArray();
+//		int N = number.length;
+//		char next = number[N-1];
+//		for(int i=N-1; i>0; i--) {
+//			char current = next;
+//			next = number[(i-1)%N];
+//			number[(i-1)%N] = current;
+//		}
+//		number[N-1] = next;
+//
+//		StringBuilder sb = new StringBuilder();
+//		for(char c : number) {
+//			sb.append(c-'0');
+//		}
+//		return Integer.parseInt(sb.toString());
+//	}
 
-		StringBuilder sb = new StringBuilder();
-		for(char c : number) {
-			sb.append(c-'0');
-		}
-		return Integer.parseInt(sb.toString());
-	}
+//	// 오른쪽으로 회전
+//	static int commandR(int n) {
+//		if(n<10) return n;
+//		// 두자릿수 이상인 자연수인 경우
+//		char[] number = String.valueOf(n).toCharArray();
+//		int N = number.length;
+//		char next = number[0];
+//		for(int j=0; j<N; j++) {
+//			char current = next;
+//			next = number[(j+1)%N];
+//			number[(j+1)%N] = current;
+//		}
+//
+//		StringBuilder sb = new StringBuilder();
+//		for(char c : number) {
+//			sb.append(c-'0');
+//		}
+//		return Integer.parseInt(sb.toString());
+//	}
 	public static void main(String[] args) throws IOException {
+		long start = System.currentTimeMillis();
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int T = Integer.parseInt(st.nextToken());
@@ -108,7 +114,9 @@ public class Q9019 {
 			st = new StringTokenizer(br.readLine());
 			int a = Integer.parseInt(st.nextToken());
 			int b = Integer.parseInt(st.nextToken());
-			solution(a, b);
+			System.out.println(solution(a, b));
 		}
+		long end = System.currentTimeMillis();
+		System.out.println("실행시간:"+(end-start)/1000.0);
 	}
 }
