@@ -5,9 +5,9 @@ URL : https://www.acmicpc.net/problem/1339
 package BaekJoon.BruteForce;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.*;
+		import java.io.IOException;
+		import java.io.InputStreamReader;
+		import java.util.*;
 
 public class Q1339 {
 	static char[] getAlphabets(char[][] words) {
