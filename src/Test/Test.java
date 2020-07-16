@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class Test {
 	public static void main(String[] args) {
-		String str = "123.123.44.21";
-		String[] tmp = str.split("\\.");
-		System.out.println(Arrays.toString(tmp));
+		int[] arr = {2,3,4,3,5};
+		Arrays.sort(arr);
+		System.out.println(Arrays.toString(arr));
 	}
 }
