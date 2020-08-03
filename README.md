@@ -39,7 +39,14 @@
 #### Math
 <ul>
 <li>Q3036 링 | GCD</li>
+<li>Q1085 직사각형에서 탈출 </li>
+<li>Q1259 팰린드롬수 </li>
 </ul>  
+
+#### Sort
+<ul>
+<li>Q1181 단어 정렬 </li>
+</ul>
 
 #### Brute Force
 <ul>
@@ -54,6 +61,7 @@
 <li>Q1339 단어수학 </li>
 <li>Q14889 스타트와 링크</li>
 <li>Q10927 다음 순열</li>
+<li>Q1018 체스판 다시 칠하기 </li>
 </ul>
 
 #### Greedy
