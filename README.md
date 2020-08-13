@@ -10,9 +10,10 @@
 <li>Q10799 쇠막대기 | 스택 </li>
 <li>Q1966 프린터 큐 </li>
 <li>Q5430 AC | 덱 </li>
+<li>Q1874 스택 수열</li>
 </ul>
 
-#### Binary Search 
+#### Binary Search ``
 <ul>
 <li>Q5639 이진 검색 트리</li>
 <li>Q1920 수 찾기</li>
